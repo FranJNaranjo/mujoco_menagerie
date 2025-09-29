@@ -18,6 +18,7 @@
     </default>
   </default>
 
+
   <asset>
     <material name="black" rgba=".2 .2 .2 1"/>
     <material name="white" rgba="1 1 1 1"/>
@@ -162,7 +163,7 @@
     <exclude body1="fr3_link0" body2="fr3_link1"/>
   </contact>
 
-  <keyframe>
+  <!-- <keyframe>
     <key name="home" qpos="0 0 0 -1.57079 0 1.57079 -0.7853" ctrl="0 0 0 -1.57079 0 1.57079 -0.7853"/>
-  </keyframe>
+  </keyframe> -->
 </mujoco>
