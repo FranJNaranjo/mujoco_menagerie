@@ -1,6 +1,6 @@
 <mujoco model="scene_fr3_table">
   <!-- Robot assembly (FR3 + hand) -->
-  <include file="fr3_mounted.xml"/>
+  <include file="fr3_mounted_updated.xml"/>
 
   <statistic center="0.7 0 0.8" extent="1.2"/>
 
@@ -21,13 +21,9 @@
     <material name="box_mat"   rgba="0.9 0.3 0.2 1"/>
   </asset>
 
-  <keyframe>
     <!-- qpos: [7 of the arm] + [finger_joint1] + [finger_joint2] -->
     <!-- use 0 0 for open fingers, or e.g., 0.02 0.02 for half-closed -->
-    <key name="home"
-        qpos="0 0 0 -1.57079 0 1.57079 -0.7853  0 0"
-        ctrl="0 0 0 -1.57079 0 1.57079 -0.7853  0"/>
-    </keyframe>
+    
 
   <worldbody>
     <!-- light and floor -->
@@ -44,9 +40,18 @@
     <geom name="leg_br" type="cylinder" size="0.02 0.375" pos="1.15 -0.05  0.375" material="table_leg"/>
 
     <!-- small box on the tabletop: half-height=0.05 -> center z=0.75+0.05=0.80 -->
-    <geom name="small_box" type="box" size="0.04 0.04 0.05" pos="0.8 0.0 0.80" material="box_mat" mass="0.2"/>
+    <body name="box"> 
+       <geom name="object_geom" type="box" size="0.03 0.03 0.06" rgba="1 0 0 1" mass="0.5"/>
+      <joint name="object_joint" type="free" damping="0.01"/> 
+    </body>
 
     <!-- optional camera -->
     <camera name="front_cam" pos="1.6 0 1.0" quat="0.9239 0 0.3827 0" fovy="50"/>
   </worldbody>
+
+  <keyframe>
+    <key name="home"
+         qpos="0 -0.785 0 -2.356 0 1.571 0.785  0.0 0.0  0.8 0.0 0.8  1 0 0 0"
+         ctrl="0 -0.785 0 -2.356 0 1.571 0.785  0"/>
+    </keyframe>
 </mujoco>
