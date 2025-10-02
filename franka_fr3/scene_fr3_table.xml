@@ -41,7 +41,7 @@
 
     <!-- small box on the tabletop: half-height=0.05 -> center z=0.75+0.05=0.80 -->
     <body name="box"> 
-       <geom name="object_geom" type="box" size="0.03 0.03 0.06" rgba="1 0 0 1" mass="0.5"/>
+       <geom name="object_geom" type="box" size="0.05 0.05 0.1" rgba="1 0 0 1" mass="1.0"/>
       <joint name="object_joint" type="free" damping="0.01"/> 
     </body>
 
@@ -51,7 +51,18 @@
 
   <keyframe>
     <key name="home"
+         qpos="0 -0.785 0 -2.356 1.57 1.571 0.785  0.0 0.0  0.8 0.0 0.8  1 0 0 0"
+         ctrl="0 -0.785 0 -2.356 1.57 1.571 0.785  0"/>
+    </keyframe>
+
+  <!-- <keyframe>
+    <key name="home"
+         qpos="0 -0.785 0 -1.57 0 1.57, 0.785  0.6 0.0 0.6 0.0 0.8  1 0 0 0"
+         ctrl="0 -0.785 0 -1.57 0 1.57 0.785  0"/>
+
          qpos="0 -0.785 0 -2.356 0 1.571 0.785  0.0 0.0  0.8 0.0 0.8  1 0 0 0"
          ctrl="0 -0.785 0 -2.356 0 1.571 0.785  0"/>
-    </keyframe>
+    </keyframe> -->
+
+
 </mujoco>
