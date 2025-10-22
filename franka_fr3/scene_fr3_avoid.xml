@@ -1,0 +1,55 @@
+<mujoco model="scene_fr3_table">
+  <!-- Robot assembly (FR3 + hand) -->
+  <include file="fr3_mounted_updated.xml"/>
+
+  <statistic center="0.7 0 0.8" extent="1.2"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8"
+             width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <material name="box_mat"   rgba="0.9 0.3 0.2 1"/>
+  </asset>
+
+    <!-- qpos: [7 of the arm] + [finger_joint1] + [finger_joint2] -->
+    <!-- use 0 0 for open fingers, or e.g., 0.02 0.02 for half-closed -->
+    
+
+  <worldbody>
+    <!-- light and floor -->
+    <light pos="0 0 1.8" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+
+    <!-- a bar-->
+    <body name="avoid_bar" pos="0.5 0.1 0.25"> 
+       <geom name="object_geom" type="box" size="0.02 0.02 0.5" rgba="1 0 0 1" mass="1.0"/>
+      <!-- a site co-located with the bar so environments can read its position by name -->
+      <site name="avoid_bar" pos="0 0 0" size="0.02" type="box" rgba="1 0 0 0.5"/>
+    </body>
+
+    <!-- goal marker (site only, no collision) -->
+    <body name="goal_marker" pos="0.65 0 0.6">
+      <!-- keep existing site name 'goal' for compatibility, and add 'goal_marker' alias -->
+      <site name="goal_marker" pos="0 0 0" size="0.02" type="sphere" rgba="0 1 0 0.6"/>
+    </body>
+
+    <!-- optional camera -->
+    <camera name="front_cam" pos="1.6 0 1.0" quat="0.9239 0 0.3827 0" fovy="50"/>
+  </worldbody>
+
+  <keyframe>
+    <key name="home"
+         qpos="0 -0.785 0 -2.356 0 1.571 0.785  0.0 0.0 "
+         ctrl="0 -0.785 0 -2.356 0 1.571 0.785  0"/>
+    </keyframe>
+
+
+</mujoco>

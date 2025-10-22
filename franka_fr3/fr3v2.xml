@@ -1,0 +1,183 @@
+<mujoco model="fr3v2">
+
+  <!-- ========================= -->
+  <!--  Compiler & Global Options -->
+  <!-- ========================= -->
+  <compiler angle="radian" meshdir="assets"/>
+  <option integrator="implicitfast" timestep="0.002" gravity="0 0 -9.81"/>
+
+  <default>
+    <default class="fr3v2">
+      <!-- Overwritten in joints 5, 6, and 7. -->
+      <joint damping="0.21" armature="0.195" frictionloss="1.137"/>
+      <position inheritrange="1"/>
+      <default class="visual">
+        <geom type="mesh" group="2" contype="0" conaffinity="0"/>
+      </default>
+      <default class="collision">
+        <geom type="mesh" group="3" mass="0" density="0"/>
+      </default>
+      <site size="0.001" rgba="0.5 0.5 0.5 0.3" group="4"/>
+    </default>
+  </default>
+
+  <!-- ========================= -->
+  <!--  Mesh Assets              -->
+  <!-- ========================= -->
+  <asset>
+    <mesh name="link0" file="link0.stl"/>
+    <mesh name="link1" file="link1.stl"/>
+    <mesh name="link2" file="link2.stl"/>
+    <mesh name="link3" file="link3.stl"/>
+    <mesh name="link4" file="link4.stl"/>
+    <mesh name="link5" file="link5.stl"/>
+    <mesh name="link6" file="link6.stl"/>
+    <mesh name="link7" file="link7.stl"/>
+    <mesh name="hand" content_type="model/stl" file="hand/hand.stl"/>
+  </asset>
+
+  <!-- ========================= -->
+  <!--  Worldbody (Robot Model)  -->
+  <!-- ========================= -->
+  <worldbody>
+
+    <!-- Lighting -->
+    <light name="top_light" pos="0 0 2" dir="0 0 -1" directional="true"/>
+
+    <!-- Base -->
+    <geom name="fr3v2_link0_collision" type="mesh" mesh="link0"/>
+
+    <!-- Link 1 -->
+    <body name="fr3v2_link1" pos="0 0 0.333">
+      <inertial pos="-0.00458 0.027016 -0.0618"
+                quat="0.989811 0.110789 0.00992127 0.0888923"
+                mass="2.4377"
+                diaginertia="0.0233003 0.0222611 0.00463865"/>
+      <joint name="fr3v2_joint1" pos="0 0 0" axis="0 0 1"
+             range="-2.7437 2.7437"
+             actuatorfrcrange="-87 87"/>
+      <geom name="fr3v2_link1_collision" type="mesh" mesh="link1"/>
+
+      <!-- Link 2 -->
+      <body name="fr3v2_link2" quat="0.707107 -0.707107 0 0">
+        <inertial pos="-0.003473 -0.168509 -0.010479"
+                  quat="0.644329 0.758803 -0.0323054 0.0895283"
+                  mass="2.2375"
+                  diaginertia="0.0192001 0.0173406 0.0052593"/>
+        <joint name="fr3v2_joint2" pos="0 0 0" axis="0 0 1"
+               range="-1.7837 1.7837"
+               actuatorfrcrange="-87 87"/>
+        <geom name="fr3v2_link2_collision" type="mesh" mesh="link2"/>
+
+        <!-- Link 3 -->
+        <body name="fr3v2_link3" pos="0 -0.316 0" quat="0.707107 0.707107 0 0">
+          <joint name="fr3v2_joint3" pos="0 0 0" axis="0 0 1"
+                 range="-2.9007 2.9007"
+                 actuatorfrcrange="-87 87"/>
+          <geom name="fr3v2_link3_collision" type="mesh" mesh="link3"/>
+
+          <!-- Link 4 -->
+          <body name="fr3v2_link4" pos="0.0825 0 0" quat="0.707107 0.707107 0 0">
+            <joint name="fr3v2_joint4" pos="0 0 0" axis="0 0 1"
+                   range="-3.0421 -0.1518"
+                   actuatorfrcrange="-87 87"/>
+            <geom name="fr3v2_link4_collision" type="mesh" mesh="link4"/>
+
+            <!-- Link 5 -->
+            <body name="fr3v2_link5" pos="-0.0825 0.384 0" quat="0.707107 -0.707107 0 0">
+              <joint name="fr3v2_joint5" pos="0 0 0" axis="0 0 1"
+                     range="-2.8065 2.8065"
+                     actuatorfrcrange="-12 12"/>
+              <geom name="fr3v2_link5_collision" type="mesh" mesh="link5"/>
+
+              <!-- Link 6 -->
+              <body name="fr3v2_link6" quat="0.707107 0.707107 0 0">
+                <joint name="fr3v2_joint6" pos="0 0 0" axis="0 0 1"
+                       range="0.5445 4.5169"
+                       actuatorfrcrange="-12 12"/>
+                <geom name="fr3v2_link6_collision" type="mesh" mesh="link6"/>
+
+                <!-- Link 7 -->
+                <body name="fr3v2_link7" pos="0.088 0 0" quat="0.707107 0.707107 0 0">
+                  <joint name="fr3v2_joint7" pos="0 0 0" axis="0 0 1"
+                         range="-3.0159 3.0159"
+                         actuatorfrcrange="-12 12"/>
+                  <geom name="fr3v2_link7_collision" type="mesh" mesh="link7"/>
+
+                  <!-- Hand -->
+                  <geom name="fr3v2_hand_collision"
+                        pos="0 0 0.107"
+                        quat="0.92388 0 0 -0.382683"
+                        type="mesh" mesh="hand"/>
+
+                  <!-- End-effector marker -->
+                  <site name="ee_center_site"
+                        pos="0 0 0.2054"
+                        size="0.01"
+                        rgba="1 0 0 1"
+                        type="sphere"/>
+
+                  <!-- Left Finger -->
+                  <body name="fr3v2_leftfinger" pos="0 0 0.1654" quat="0.92388 0 0 -0.382683">
+                    <joint name="fr3v2_finger_joint1" pos="0 0 0" axis="0 1 0"
+                           type="slide" range="0 0.04"
+                           actuatorfrcrange="-100 100" damping="0.3"/>
+                    <geom size="0.011 0.0075 0.01" pos="0 0.0185 0.011" type="box"/>
+                    <geom size="0.00875 0.0035 0.01175"
+                          pos="0 0.0159 0.02835"
+                          quat="0.965926 0.258819 0 0" type="box"/>
+                  </body>
+
+                  <!-- Right Finger -->
+                  <body name="fr3v2_rightfinger" pos="0 0 0.1654" quat="0.382683 0 0 0.92388">
+                    <joint name="fr3v2_finger_joint2" pos="0 0 0" axis="0 1 0"
+                           type="slide" range="0 0.04"
+                           actuatorfrcrange="-100 100" damping="0.3"/>
+                    <geom size="0.011 0.0075 0.01" pos="0 0.0185 0.011" type="box"/>
+                    <geom size="0.00875 0.0035 0.01175"
+                          pos="0 0.0159 0.02835"
+                          quat="0 0 -0.258819 0.965926" type="box"/>
+                  </body>
+
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+
+  </worldbody>
+
+  <!-- ========================= -->
+  <!--  Tendon (Finger Sync)     -->
+  <!-- ========================= -->
+  <tendon>
+    <fixed name="fr3v2_gripper_tendon">
+      <joint joint="fr3v2_finger_joint1" coef="0.5"/>
+      <joint joint="fr3v2_finger_joint2" coef="0.5"/>
+    </fixed>
+  </tendon>
+
+  <!-- ========================= -->
+  <!--  Equality (Sync Motion)   -->
+  <!-- ========================= -->
+  <equality>
+    <joint joint1="fr3v2_finger_joint1" joint2="fr3v2_finger_joint2"
+           solimp="0.95 0.99 0.001" solref="0.005 1"/>
+  </equality>
+
+  <!-- ========================= -->
+  <!--  Actuators (7DOF + Grip)  -->
+  <!-- ========================= -->
+  <actuator>
+    <position class="fr3v2" name="fr3v2_actuator1" joint="fr3v2_joint1" kp="4500" kv="450"/>
+    <position class="fr3v2" name="fr3v2_actuator2" joint="fr3v2_joint2" kp="4500" kv="450"/>
+    <position class="fr3v2" name="fr3v2_actuator3" joint="fr3v2_joint3" kp="3500" kv="350"/>
+    <position class="fr3v2" name="fr3v2_actuator4" joint="fr3v2_joint4" kp="3500" kv="350"/>
+    <position class="fr3v2" name="fr3v2_actuator5" joint="fr3v2_joint5" kp="2000" kv="200"/>
+    <position class="fr3v2" name="fr3v2_actuator6" joint="fr3v2_joint6" kp="2000" kv="200"/>
+    <position class="fr3v2" name="fr3v2_actuator7" joint="fr3v2_joint7" kp="2000" kv="200"/>
+  </actuator>
+
+</mujoco>
