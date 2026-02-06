@@ -132,11 +132,14 @@
                       <geom size="0.0225 0.00785" pos="0 0 -0.05385" quat="0 0 1 0" type="cylinder" material="mercury"/>
                       <geom size="0.025 0.004875" pos="0 0 -0.066575" quat="0 -1 1 0" type="cylinder" material="gray10"/>
                       <geom pos="0 0 -0.076575" quat="1 0 0 -1" material="white" mesh="gripper_link"/>
+
+                      <site name="left_wrist_ft_site" pos="0 0 -0.076575" size="0.01" rgba="1 0 0 1" group="3"/>
+
                       <body name="gripper_left_right_finger_link" pos="0 0 -0.076575" quat="1 0 0 -1">
                         <inertial pos="0.008658 0.019724 -0.149125" mass="0.107001" diaginertia="0.000242 0.000236 0.000018"/>
                         <joint name="gripper_left_right_finger_joint" axis="1 0 0" type="slide" range="0 0.045"
                           damping="1"/>
-                        <geom quat="4.63268e-05 0 0 1" material="black" mesh="gripper_right_finger_link"/>
+                        <geom name="gripper_left_right_finger_geom" quat="4.63268e-05 0 0 1" material="black" mesh="gripper_right_finger_link"/>
                       </body>
                       <body name="gripper_left_left_finger_link" pos="0 0 -0.076575" quat="1 0 0 -1">
                         <inertial pos="-0.008658 -0.019724 -0.149125" mass="0.107001" diaginertia="0.000242 0.000236 0.000018"/>
@@ -182,17 +185,20 @@
                       <geom size="0.0225 0.00785" pos="0 0 0.05385" quat="-1 0 0 0" type="cylinder" material="mercury"/>
                       <geom size="0.025 0.004875" pos="0 0 0.066575" quat="-1 0 0 1" type="cylinder" material="gray10"/>
                       <geom pos="0 0 0.076575" quat="0 -1 1 0" material="white" mesh="gripper_link"/>
+
+                      <site name="right_wrist_ft_site" pos="0 0 0.076575" size="0.01" rgba="1 0 0 1" group="3"/>
+
                       <body name="gripper_right_right_finger_link" pos="0 0 0.076575" quat="0 -1 1 0">
                         <inertial pos="0.008658 0.019724 -0.149125" mass="0.107001" diaginertia="0.000242 0.000236 0.000018"/>
                         <joint name="gripper_right_right_finger_joint" axis="1 0 0" type="slide" range="0 0.045"
                           damping="1"/>
-                        <geom quat="4.63268e-05 0 0 1" material="black" mesh="gripper_right_finger_link"/>
+                        <geom name="gripper_right_right_finger_geom" quat="4.63268e-05 0 0 1" material="black" mesh="gripper_right_finger_link"/>
                       </body>
                       <body name="gripper_right_left_finger_link" pos="0 0 0.076575" quat="0 -1 1 0">
                         <inertial pos="-0.008658 -0.019724 -0.149125" mass="0.107001" diaginertia="0.000242 0.000236 0.000018"/>
                         <joint name="gripper_right_left_finger_joint" axis="-1 0 0" type="slide" range="0 0.045"
                           damping="1"/>
-                        <geom quat="4.63268e-05 0 0 1" material="black" mesh="gripper_left_finger_link"/>
+                        <geom name="gripper_right_left_finger_geom"  quat="4.63268e-05 0 0 1" material="black" mesh="gripper_left_finger_link"/>
                       </body>
                     </body>
                   </body>
@@ -211,5 +217,12 @@
     <exclude body1="gripper_left_right_finger_link" body2="gripper_left_left_finger_link"/>
     <exclude body1="gripper_right_right_finger_link" body2="gripper_right_left_finger_link"/>
   </contact>
+
+  <sensor>
+    <force name="left_arm_force" site="left_wrist_ft_site"/>
+    <torque name="left_arm_torque" site="left_wrist_ft_site"/>
+    <force name="right_arm_force" site="right_wrist_ft_site"/>
+    <torque name="right_arm_torque" site="right_wrist_ft_site"/>
+  </sensor>
 
 </mujoco>
